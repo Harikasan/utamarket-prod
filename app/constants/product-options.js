@@ -1,0 +1,25 @@
+export const sizes = ["XS", "S", "M", "L", "XL", "2XL"];
+
+export const colors = [
+  "Clear",
+  "Black",
+  "Brown",
+  "Natural",
+  "White",
+  "Blue",
+  "Royal",
+  "Silver",
+  "Orange",
+  "Grey",
+  "Fuchsia",
+  "Platinum",
+  "Titan Grey",
+  "Dark Charcoal",
+  "Carbon",
+  "Light Blue",
+  "Heather Grey",
+  "Steel",
+  "Ash Grey",
+  "Vintage Royal",
+  "Charcoal",
+];

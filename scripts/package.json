@@ -1,0 +1,12 @@
+{
+  "name": "utamarket-ai-logs-updater",
+  "version": "1.0.0",
+  "description": "Script to update AI recommendation logs for UTAMarket",
+  "main": "update_ai_logs.js",
+  "scripts": {
+    "update": "node update_ai_logs.js"
+  },
+  "dependencies": {
+    "mysql2": "^3.9.1"
+  }
+}
