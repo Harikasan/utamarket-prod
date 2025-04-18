@@ -38,12 +38,6 @@ export default function LoginPage() {
         return;
       }
 
-      if (!formData.email.endsWith("@mavs.uta.edu")) {
-        setError("Please use your UTA email address (@mavs.uta.edu)");
-        setIsLoading(false);
-        return;
-      }
-
       // Send login request
       const response = await fetch("/api/auth/login", {
         method: "POST",
@@ -137,11 +131,11 @@ export default function LoginPage() {
                 )}
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">UTA Email</Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="your.name@mavs.uta.edu"
+                    placeholder="your.email@example.com"
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })

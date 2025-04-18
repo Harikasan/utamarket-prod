@@ -58,12 +58,9 @@ export default function TermsPage() {
                         To use UTAMarket, you must be:
                       </p>
                       <ul className="list-disc pl-6 text-zinc-700 space-y-2">
-                        <li>A current UTA student with a valid student ID</li>
                         <li>At least 18 years of age</li>
                         <li>Able to form legally binding contracts</li>
-                        <li>
-                          In possession of a valid @mavs.uta.edu email address
-                        </li>
+                        <li>In possession of a valid email address</li>
                       </ul>
                     </div>
                   </section>

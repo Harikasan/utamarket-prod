@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import pool from "@/database/db.js";
+import { sendOrderConfirmationEmail } from "@/lib/email.js";
 
 export async function POST(request) {
   let connection;
@@ -24,8 +25,16 @@ export async function POST(request) {
 
     // Get request body
     const body = await request.json();
-    const { shippingInfo, paymentInfo, items, subtotal, shipping, tax, total } =
-      body;
+    const {
+      shippingInfo,
+      paymentInfo,
+      items,
+      subtotal,
+      shipping,
+      tax,
+      total,
+      discount = 0,
+    } = body;
 
     // Get connection from pool
     connection = await pool.getConnection();
@@ -118,6 +127,35 @@ export async function POST(request) {
         "UPDATE carts SET status = 'converted_to_order' WHERE id = ?",
         [cartId]
       );
+
+      // Get user details for email
+      const [users] = await connection.execute(
+        "SELECT name, email FROM users WHERE id = ?",
+        [decoded.userId]
+      );
+
+      if (users.length > 0) {
+        const user = users[0];
+        const order = {
+          id: orderId,
+          items,
+          summary: {
+            subtotal,
+            shipping,
+            tax,
+            discount,
+            total,
+          },
+          shippingInfo,
+        };
+
+        // Send confirmation email
+        await sendOrderConfirmationEmail(order, {
+          firstName: user.name.split(" ")[0],
+          lastName: user.name.split(" ").slice(1).join(" "),
+          email: user.email,
+        });
+      }
 
       // Commit transaction
       await connection.commit();

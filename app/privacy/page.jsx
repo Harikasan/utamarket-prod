@@ -50,7 +50,7 @@ export default function PrivacyPage() {
                           <span className="font-medium">
                             Account Information:
                           </span>{" "}
-                          Your name, UTA student ID, and @mavs.uta.edu email
+                          Your name, email address, and contact information
                         </li>
                         <li>
                           <span className="font-medium">Profile Data:</span>{" "}

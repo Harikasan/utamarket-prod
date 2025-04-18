@@ -82,15 +82,6 @@ export async function POST(request) {
       );
     }
 
-    // Validate UTA email
-    if (!email.endsWith("@mavs.uta.edu")) {
-      console.log("Invalid email domain:", email);
-      return NextResponse.json(
-        { message: "Please use your UTA email address" },
-        { status: 400 }
-      );
-    }
-
     // Get database connection
     connection = await pool.getConnection();
     console.log("Database connection established");

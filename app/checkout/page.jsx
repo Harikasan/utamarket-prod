@@ -34,6 +34,9 @@ export default function CheckoutPage() {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
   const [step, setStep] = useState(1);
+  const [couponCode, setCouponCode] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponError, setCouponError] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -170,6 +173,63 @@ export default function CheckoutPage() {
     } finally {
       setProcessing(false);
     }
+  };
+
+  // Add coupon validation and application function
+  const applyCoupon = async () => {
+    try {
+      setCouponError("");
+      const response = await fetch("/api/coupons/validate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code: couponCode,
+          cartTotal: cart.summary.subtotal,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Invalid coupon code");
+      }
+
+      setAppliedCoupon(data);
+      setCart((prevCart) => ({
+        ...prevCart,
+        summary: {
+          ...prevCart.summary,
+          discount: data.discount,
+          total:
+            prevCart.summary.subtotal +
+            prevCart.summary.shipping +
+            prevCart.summary.tax -
+            data.discount,
+        },
+      }));
+      toast.success("Coupon applied successfully!");
+    } catch (err) {
+      setCouponError(err.message);
+      toast.error(err.message);
+    }
+  };
+
+  const removeCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponCode("");
+    setCart((prevCart) => ({
+      ...prevCart,
+      summary: {
+        ...prevCart.summary,
+        discount: 0,
+        total:
+          prevCart.summary.subtotal +
+          prevCart.summary.shipping +
+          prevCart.summary.tax,
+      },
+    }));
   };
 
   if (loading) {
@@ -507,6 +567,58 @@ export default function CheckoutPage() {
                     <span className="text-zinc-600">Tax</span>
                     <span>${cart.summary.tax.toFixed(2)}</span>
                   </div>
+                  {/* Coupon Section */}
+                  <div className="space-y-2">
+                    {!appliedCoupon ? (
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder="Enter coupon code"
+                          value={couponCode}
+                          onChange={(e) =>
+                            setCouponCode(e.target.value.toUpperCase())
+                          }
+                          className="flex-1"
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={applyCoupon}
+                          disabled={!couponCode}
+                        >
+                          Apply
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-green-500" />
+                          <span className="text-green-600">
+                            Coupon: {appliedCoupon.code} (-$
+                            {appliedCoupon.discount.toFixed(2)})
+                          </span>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={removeCoupon}
+                        >
+                          Remove
+                        </Button>
+                      </div>
+                    )}
+                    {couponError && (
+                      <p className="text-sm text-red-500">{couponError}</p>
+                    )}
+                  </div>
+                  {cart.summary.discount > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-zinc-600">Discount</span>
+                      <span className="text-green-600">
+                        -${cart.summary.discount.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
                     <span>${cart.summary.total.toFixed(2)}</span>

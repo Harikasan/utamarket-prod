@@ -48,12 +48,6 @@ export default function SignUpPage() {
         return;
       }
 
-      if (!formData.email.endsWith("@mavs.uta.edu")) {
-        setError("Please use your UTA email address (@mavs.uta.edu)");
-        setIsLoading(false);
-        return;
-      }
-
       if (formData.password.length < 8) {
         setError("Password must be at least 8 characters long");
         setIsLoading(false);
@@ -186,11 +180,11 @@ export default function SignUpPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">UTA Email</Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="your.name@mavs.uta.edu"
+                    placeholder="your.email@example.com"
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
