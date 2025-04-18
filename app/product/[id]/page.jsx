@@ -30,6 +30,7 @@ import { WishlistButton } from "@/components/WishlistButton";
 import { Label } from "@/components/ui/label";
 import Reviews from "@/components/Reviews";
 import { RatingSummary } from "@/components/RatingSummary";
+import { SimilarProducts } from "@/components/SimilarProducts";
 
 // This would normally come from a database or API
 const getProductById = (id) => {
@@ -132,7 +133,7 @@ const getProductById = (id) => {
 
 export default function ProductPage() {
   const params = useParams();
-  const productId = params.id; // Now safely accessing the id parameter
+  const productId = params.id;
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -305,193 +306,206 @@ export default function ProductPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="container mx-auto px-4 py-8">
+      <main className="flex-grow container mx-auto px-4 py-8">
         {loading ? (
           <div>Loading...</div>
         ) : error ? (
           <div>Error: {error}</div>
         ) : product ? (
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Product Images */}
-            <div className="space-y-4">
-              <div className="relative aspect-square overflow-hidden rounded-lg">
-                <Image
-                  src={product.images?.[selectedImage] || product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              {product.images && (
-                <div className="grid grid-cols-4 gap-4">
-                  {product.images.map((image, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setSelectedImage(index)}
-                      className={`relative aspect-square overflow-hidden rounded-lg ${
-                        selectedImage === index
-                          ? "ring-2 ring-[#0064B1]"
-                          : "ring-1 ring-zinc-200"
-                      }`}
-                    >
-                      <Image
-                        src={image}
-                        alt={`${product.name} view ${index + 1}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </button>
-                  ))}
+          <div className="space-y-12">
+            {/* Product Details Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Product Images */}
+              <div className="space-y-4">
+                <div className="relative aspect-square overflow-hidden rounded-lg">
+                  <Image
+                    src={product.images?.[selectedImage] || product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-              )}
-            </div>
-
-            {/* Product Info */}
-            <div className="space-y-6">
-              <div>
-                <h1 className="text-2xl font-semibold text-zinc-900">
-                  {product.name}
-                </h1>
-                <p className="mt-2 text-zinc-500">{product.category}</p>
-              </div>
-
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-bold text-[#0064B1]">
-                  ${product.price}
-                </span>
-                {product.discount > 0 && product.originalPrice && (
-                  <>
-                    <span className="text-lg text-zinc-400 line-through">
-                      ${product.originalPrice}
-                    </span>
-                    <Badge className="bg-red-500">
-                      {product.discount}% OFF
-                    </Badge>
-                  </>
+                {product.images && (
+                  <div className="grid grid-cols-4 gap-4">
+                    {product.images.map((image, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedImage(index)}
+                        className={`relative aspect-square overflow-hidden rounded-lg ${
+                          selectedImage === index
+                            ? "ring-2 ring-[#0064B1]"
+                            : "ring-1 ring-zinc-200"
+                        }`}
+                      >
+                        <Image
+                          src={image}
+                          alt={`${product.name} view ${index + 1}`}
+                          fill
+                          className="object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
 
-              <RatingSummary productId={product.id} />
+              {/* Product Info */}
+              <div className="space-y-6">
+                <div>
+                  <h1 className="text-2xl font-semibold text-zinc-900">
+                    {product.name}
+                  </h1>
+                  <p className="mt-2 text-zinc-500">{product.category}</p>
+                </div>
 
-              <Separator />
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-[#0064B1]">
+                    ${product.price}
+                  </span>
+                  {product.discount > 0 && product.originalPrice && (
+                    <>
+                      <span className="text-lg text-zinc-400 line-through">
+                        ${product.originalPrice}
+                      </span>
+                      <Badge className="bg-red-500">
+                        {product.discount}% OFF
+                      </Badge>
+                    </>
+                  )}
+                </div>
 
-              {/* Size Selection */}
-              {product.availableSizes && product.availableSizes.length > 0 && (
+                <RatingSummary productId={product.id} />
+
+                <Separator />
+
+                {/* Size Selection */}
+                {product.availableSizes &&
+                  product.availableSizes.length > 0 && (
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-zinc-900">
+                        Size
+                      </label>
+                      <Select
+                        value={selectedSize}
+                        onValueChange={setSelectedSize}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select size" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {product.availableSizes.map((size) => (
+                            <SelectItem key={size} value={size}>
+                              {size}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+
+                {/* Color Selection */}
+                {product.availableColors &&
+                  product.availableColors.length > 0 && (
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-zinc-900">
+                        Color
+                      </label>
+                      <Select
+                        value={selectedColor}
+                        onValueChange={setSelectedColor}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select color" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {product.availableColors.map((color) => (
+                            <SelectItem key={color} value={color}>
+                              {color}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+
+                {/* Quantity Selection */}
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-zinc-900">
-                    Size
+                    Quantity
                   </label>
-                  <Select value={selectedSize} onValueChange={setSelectedSize}>
+                  <Select
+                    value={quantity.toString()}
+                    onValueChange={(value) => setQuantity(parseInt(value))}
+                  >
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select size" />
+                      <SelectValue placeholder="Select quantity" />
                     </SelectTrigger>
                     <SelectContent>
-                      {product.availableSizes.map((size) => (
-                        <SelectItem key={size} value={size}>
-                          {size}
+                      {[1, 2, 3, 4, 5].map((num) => (
+                        <SelectItem key={num} value={num.toString()}>
+                          {num}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
-              )}
 
-              {/* Color Selection */}
-              {product.availableColors &&
-                product.availableColors.length > 0 && (
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-zinc-900">
-                      Color
-                    </label>
-                    <Select
-                      value={selectedColor}
-                      onValueChange={setSelectedColor}
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select color" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {product.availableColors.map((color) => (
-                          <SelectItem key={color} value={color}>
-                            {color}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
+                <div className="flex items-center space-x-4">
+                  <Button
+                    className="flex-1 bg-[#0064B1] hover:bg-[#0064B1]/90"
+                    onClick={handleAddToCart}
+                    disabled={addingToCart}
+                  >
+                    <ShoppingCart className="h-4 w-4 mr-2" />
+                    {addingToCart ? "Adding..." : "Add to Cart"}
+                  </Button>
+                  <WishlistButton product={product} />
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={handleShare}
+                    title="Share this product"
+                  >
+                    <Share2 className="h-4 w-4" />
+                  </Button>
+                </div>
 
-              {/* Quantity Selection */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-zinc-900">
-                  Quantity
-                </label>
-                <Select
-                  value={quantity.toString()}
-                  onValueChange={(value) => setQuantity(parseInt(value))}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select quantity" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[1, 2, 3, 4, 5].map((num) => (
-                      <SelectItem key={num} value={num.toString()}>
-                        {num}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <Button
-                  className="flex-1 bg-[#0064B1] hover:bg-[#0064B1]/90"
-                  onClick={handleAddToCart}
-                  disabled={addingToCart}
-                >
-                  <ShoppingCart className="h-4 w-4 mr-2" />
-                  {addingToCart ? "Adding..." : "Add to Cart"}
-                </Button>
-                <WishlistButton product={product} />
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={handleShare}
-                  title="Share this product"
-                >
-                  <Share2 className="h-4 w-4" />
-                </Button>
-              </div>
-
-              {/* Product Description */}
-              <div className="space-y-4">
-                <h2 className="text-lg font-semibold text-zinc-900">
-                  Description
-                </h2>
-                <p className="text-zinc-600">{product.description}</p>
-              </div>
-
-              {/* Product Details */}
-              {product.details && (
+                {/* Product Description */}
                 <div className="space-y-4">
                   <h2 className="text-lg font-semibold text-zinc-900">
-                    Product Details
+                    Description
                   </h2>
-                  <ul className="list-disc list-inside space-y-2 text-zinc-600">
-                    {product.details.map((detail, index) => (
-                      <li key={index}>{detail}</li>
-                    ))}
-                  </ul>
+                  <p className="text-zinc-600">{product.description}</p>
                 </div>
-              )}
 
-              {/* Reviews Section */}
-              <div className="mt-8">
-                <Reviews productId={product.id} />
+                {/* Product Details */}
+                {product.details && (
+                  <div className="space-y-4">
+                    <h2 className="text-lg font-semibold text-zinc-900">
+                      Product Details
+                    </h2>
+                    <ul className="list-disc list-inside space-y-2 text-zinc-600">
+                      {product.details.map((detail, index) => (
+                        <li key={index}>{detail}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
+
+            {/* Reviews Section */}
+            <div className="mt-12">
+              <Reviews productId={productId} />
+            </div>
+
+            {/* Similar Products Section */}
+            <SimilarProducts
+              currentProductId={productId}
+              category={product?.category}
+            />
           </div>
         ) : null}
       </main>
