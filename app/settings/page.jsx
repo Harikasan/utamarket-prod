@@ -204,11 +204,25 @@ export default function SettingsPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Failed to update settings");
+        if (data.message === "Current password is incorrect") {
+          setError(
+            "The current password you entered is incorrect. Please try again."
+          );
+        } else {
+          throw new Error(data.message || "Failed to update settings");
+        }
+        return;
       }
 
       setSuccess("Settings updated successfully!");
       setIsEditing(false);
+      // Clear password fields after successful update
+      setFormData((prev) => ({
+        ...prev,
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      }));
       fetchProfileData(); // Refresh profile data
     } catch (err) {
       setError(err.message);
