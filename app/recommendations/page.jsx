@@ -2,13 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { WishlistButton } from "@/components/WishlistButton";
-import { ShoppingBag, Loader2, Package } from "lucide-react";
+import { Package, Loader2 } from "lucide-react";
+import { ProductCard } from "@/components/ProductCard";
 
 export default function RecommendationsPage() {
   const router = useRouter();
@@ -53,15 +52,6 @@ export default function RecommendationsPage() {
 
     fetchRecommendations();
   }, [router]);
-
-  const formatPrice = (price) => {
-    if (!price) return "0.00";
-    const numPrice =
-      typeof price === "string"
-        ? parseFloat(price.replace(/[^0-9.-]+/g, ""))
-        : price;
-    return isNaN(numPrice) ? "0.00" : numPrice.toFixed(2);
-  };
 
   if (loading) {
     return (
@@ -133,47 +123,15 @@ export default function RecommendationsPage() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {recommendations.map((product) => (
-                <div
+                <ProductCard
                   key={product.id}
-                  className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow"
-                >
-                  <Link href={`/product/${product.id}`}>
-                    <div className="relative h-64 w-full">
-                      <Image
-                        src={product.image_url}
-                        alt={product.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </Link>
-                  <div className="p-4">
-                    <div className="flex items-start justify-between gap-2">
-                      <Link
-                        href={`/product/${product.id}`}
-                        className="flex-1 group"
-                      >
-                        <h3 className="font-medium text-gray-900 group-hover:text-[#0064B1] line-clamp-2">
-                          {product.name}
-                        </h3>
-                      </Link>
-                      <WishlistButton product={product} className="mt-1" />
-                    </div>
-                    <p className="text-sm text-zinc-600 mt-1">
-                      {product.category}
-                    </p>
-                    <div className="flex items-center justify-between mt-2">
-                      <p className="text-lg font-semibold text-[#0064B1]">
-                        ${formatPrice(product.price)}
-                      </p>
-                      <Button asChild variant="outline" size="sm">
-                        <Link href={`/product/${product.id}`}>
-                          View Details
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+                  id={product.id}
+                  name={product.name}
+                  price={product.price}
+                  image={product.image_url}
+                  itemDetails={product.itemDetails}
+                  category={product.category}
+                />
               ))}
             </div>
           )}

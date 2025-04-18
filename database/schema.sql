@@ -273,4 +273,23 @@ CREATE TABLE IF NOT EXISTS product_sizes (
 
 -- Add size field to item_details JSON in products table
 ALTER TABLE products
-MODIFY COLUMN item_details JSON DEFAULT (JSON_OBJECT('Type', '', 'Color', '', 'Size', '')); 
+MODIFY COLUMN item_details JSON DEFAULT (JSON_OBJECT('Type', '', 'Color', '', 'Size', ''));
+
+-- Product Reviews Table
+CREATE TABLE IF NOT EXISTS product_reviews (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    order_id INT NOT NULL,
+    rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    review_text TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_user_product_order (user_id, product_id, order_id),
+    INDEX idx_user (user_id),
+    INDEX idx_product (product_id),
+    INDEX idx_order (order_id)
+); 

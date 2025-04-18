@@ -28,6 +28,8 @@ import {
 import { useRouter, useParams } from "next/navigation";
 import { WishlistButton } from "@/components/WishlistButton";
 import { Label } from "@/components/ui/label";
+import Reviews from "@/components/Reviews";
+import { RatingSummary } from "@/components/RatingSummary";
 
 // This would normally come from a database or API
 const getProductById = (id) => {
@@ -371,23 +373,7 @@ export default function ProductPage() {
                 )}
               </div>
 
-              <div className="flex items-center gap-2">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-5 h-5 ${
-                        i < Math.floor(product.rating)
-                          ? "text-yellow-400 fill-current"
-                          : "text-zinc-200"
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-zinc-600">
-                  {product.rating} ({product.reviewCount} reviews)
-                </span>
-              </div>
+              <RatingSummary productId={product.id} />
 
               <Separator />
 
@@ -500,6 +486,11 @@ export default function ProductPage() {
                   </ul>
                 </div>
               )}
+
+              {/* Reviews Section */}
+              <div className="mt-8">
+                <Reviews productId={product.id} />
+              </div>
             </div>
           </div>
         ) : null}
