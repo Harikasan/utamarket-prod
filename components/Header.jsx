@@ -46,9 +46,7 @@ export function Header() {
         const data = await response.json();
         setIsAuthenticated(true);
         // Check if user is admin
-        setIsAdmin(
-          data.user.email === "admin@mavs.uta.edu" && data.user.name === "admin"
-        );
+        setIsAdmin(data.user.name === "admin");
       } else {
         setIsAuthenticated(false);
         setIsAdmin(false);

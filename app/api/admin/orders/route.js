@@ -22,7 +22,7 @@ export async function GET(request) {
       const decoded = jwt.verify(token.value, process.env.JWT_SECRET);
 
       // Check if user is admin
-      if (decoded.email !== "admin@mavs.uta.edu" || decoded.name !== "admin") {
+      if (decoded.name !== "admin") {
         return NextResponse.json(
           { error: "Unauthorized - Admin access required" },
           { status: 403 }
@@ -113,7 +113,7 @@ export async function PUT(request) {
       const decoded = jwt.verify(token.value, process.env.JWT_SECRET);
 
       // Check if user is admin
-      if (decoded.email !== "admin@mavs.uta.edu" || decoded.name !== "admin") {
+      if (decoded.name !== "admin") {
         return NextResponse.json(
           { error: "Unauthorized - Admin access required" },
           { status: 403 }

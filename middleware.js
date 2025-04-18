@@ -10,7 +10,7 @@ const protectedRoutes = [
 ];
 
 // List of auth routes (login/signup pages)
-const authRoutes = ["/login", "/signup", "/reset-password"];
+const authRoutes = ["/login", "/signup"];
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
@@ -52,7 +52,6 @@ export const config = {
      * Match all auth routes:
      * - /login
      * - /signup
-     * - /reset-password
      */
     "/account/:path*",
     "/orders/:path*",
@@ -61,6 +60,5 @@ export const config = {
     "/checkout/:path*",
     "/login",
     "/signup",
-    "/reset-password",
   ],
 };

@@ -509,6 +509,12 @@ export default function SettingsPage() {
                       type="password"
                       value={formData.currentPassword}
                       onChange={handleInputChange}
+                      disabled={!isEditing}
+                      placeholder={
+                        isEditing
+                          ? "Enter your current password"
+                          : "Click 'Edit Profile' to change password"
+                      }
                     />
                   </div>
                   <div>
@@ -519,6 +525,7 @@ export default function SettingsPage() {
                       type="password"
                       value={formData.newPassword}
                       onChange={handleInputChange}
+                      disabled={!isEditing}
                     />
                   </div>
                   <div>
@@ -531,6 +538,7 @@ export default function SettingsPage() {
                       type="password"
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
+                      disabled={!isEditing}
                     />
                   </div>
                 </div>
