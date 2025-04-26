@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -218,24 +217,22 @@ export default function ContactAdminPage() {
   };
 
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Header />
-      <main className="min-h-screen bg-gray-50">
-        <div className="bg-[#0064B1] text-white py-12">
-          <div className="container mx-auto px-4">
-            <h1 className="text-3xl font-bold mb-4">Admin Support Dashboard</h1>
-            <p className="text-lg opacity-90">
-              Manage and respond to user inquiries
-            </p>
-          </div>
-        </div>
+      <main className="flex-grow flex">
+        <div className="w-full h-[calc(100vh-64px)] flex">
+          <div className="w-full max-w-7xl mx-auto bg-white border border-gray-200 rounded-lg shadow-md">
+            <div className="bg-[#0064B1] text-white py-4 px-6">
+              <h1 className="text-2xl font-bold">Admin Support Dashboard</h1>
+              <p className="text-sm opacity-90">
+                Manage and respond to user inquiries
+              </p>
+            </div>
 
-        <div className="container mx-auto px-4 py-8">
-          <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-            <div className="grid grid-cols-12 h-[700px]">
+            <div className="grid grid-cols-12 h-[calc(100vh-64px-80px)]">
               {/* Users Sidebar */}
-              <div className="col-span-4 border-r">
-                <div className="p-4 border-b">
+              <div className="col-span-4 border-r border-gray-200">
+                <div className="p-4 border-b border-gray-200">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <Input
@@ -246,7 +243,7 @@ export default function ContactAdminPage() {
                     />
                   </div>
                 </div>
-                <ScrollArea className="h-[calc(700px-73px)]">
+                <ScrollArea className="h-[calc(100vh-64px-80px-73px)]">
                   <div className="space-y-1">
                     {filteredSessions.map((session) => (
                       <div
@@ -301,11 +298,11 @@ export default function ContactAdminPage() {
               </div>
 
               {/* Chat Area */}
-              <div className="col-span-8">
+              <div className="col-span-8 flex flex-col">
                 {selectedSession ? (
                   <>
                     {/* Chat Header */}
-                    <div className="p-4 border-b bg-gray-50">
+                    <div className="p-4 border-b border-gray-200 bg-gray-50">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-[#0064B1] rounded-full flex items-center justify-center">
                           <User className="h-5 w-5 text-white" />
@@ -322,7 +319,7 @@ export default function ContactAdminPage() {
                     </div>
 
                     {/* Chat Messages */}
-                    <ScrollArea className="h-[calc(700px-170px)] p-4">
+                    <ScrollArea className="flex-grow p-4">
                       <div className="space-y-4">
                         {messages.map((message) => (
                           <div
@@ -372,7 +369,7 @@ export default function ContactAdminPage() {
                     </ScrollArea>
 
                     {/* Message Input */}
-                    <div className="p-4 border-t">
+                    <div className="p-4 border-t border-gray-200">
                       <form onSubmit={handleSendMessage} className="flex gap-2">
                         <Input
                           placeholder="Type your message..."
@@ -396,7 +393,6 @@ export default function ContactAdminPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </>
+    </div>
   );
 }
