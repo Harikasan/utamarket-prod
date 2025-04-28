@@ -221,6 +221,16 @@ export default function LoginPage() {
               </Link>
             </p>
 
+            {/* Forgot Password Link */}
+            <p className="text-center mt-2 text-zinc-600">
+              <Link
+                href="/forgot-password"
+                className="text-[#0064B1] hover:underline"
+              >
+                Forgot Password?
+              </Link>
+            </p>
+
             {/* Additional Info */}
             <div className="mt-8 text-center text-sm text-zinc-500">
               <p>Need help? Contact support at</p>
