@@ -192,6 +192,15 @@ cd utamarket-prod
 npm install
 ```
 
+### Configure Environment Variables
+
+Copy the example environment file and create your local configuration.
+
+```bash
+cp .env.example .env
+```
+Update the values in `.env` with your own database credentials, email configuration, JWT secret, and any other required API keys.
+
 ### Run the Application
 
 ```bash
