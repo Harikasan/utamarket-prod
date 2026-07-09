@@ -1,282 +1,441 @@
-# UTAMarket
+# 🛒 UTAMarket
 
 ### AI-Powered Marketplace Platform for University Communities
 
-🚀 **Live Demo:** https://utamarket.vercel.app/
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-15-black?logo=next.js" />
+  <img src="https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Prisma-ORM-2D3748?logo=prisma" />
+  <img src="https://img.shields.io/badge/MySQL-Database-4479A1?logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/TailwindCSS-v4-38B2AC?logo=tailwindcss&logoColor=white" />
+</p>
 
-## Overview
-
-UTAMarket is a full-stack AI-powered marketplace platform designed to connect university students through a seamless buying and selling experience. The platform combines intelligent product recommendations, secure authentication, personalized user experiences, and scalable web technologies to improve product discovery and user engagement.
-
-The application enables users to browse products, manage listings, track orders, receive personalized recommendations, and interact with an AI-powered assistant, creating a modern marketplace experience tailored for university communities.
-
----
-
-## Features
-
-### Marketplace Functionality
-
-* Product listing and management
-* Category-based browsing and filtering
-* Product search capabilities
-* Shopping cart and checkout workflow
-* Order tracking and management
-* User profile and account management
-
-### AI-Powered Recommendations
-
-* Personalized product recommendations
-* User behavior-based suggestions
-* Improved product discovery experience
-* Machine learning-powered recommendation engine
-
-### Authentication & Security
-
-* Secure user authentication
-* Single Sign-On (SSO) integration
-* Session management and access control
-* Protected user workflows
-
-### AI Assistant
-
-* Integrated chatbot for user support
-* Product discovery assistance
-* Enhanced shopping experience
-
-### User Experience
-
-* Responsive design for mobile and desktop
-* Interactive and intuitive interface
-* Optimized navigation and usability
-* Real-time feedback for user actions
-
-### Quality Assurance
-
-* Automated testing using Selenium and PyTest
-* Functional and integration testing
-* Validation of critical marketplace workflows
+<p align="center">
+An AI-powered marketplace built for university communities that enables students to buy, sell, and discover products through personalized recommendations, secure authentication, and an intelligent shopping assistant.
+</p>
 
 ---
 
-## Architecture
+## 🚀 Live Demo
+
+**https://utamarket.vercel.app/**
+
+---
+
+# 📖 Overview
+
+UTAMarket is a production-style full-stack marketplace application developed for university students. The platform provides a modern buying and selling experience with AI-powered product recommendations, secure authentication, intelligent search, shopping cart functionality, and personalized user experiences.
+
+The application demonstrates modern software engineering practices including scalable architecture, database optimization, RESTful APIs, authentication, real-time communication, and AI integration.
+
+---
+
+# ✨ Features
+
+## Marketplace
+
+- Product listing and management
+- Product browsing
+- Category filtering
+- Product search
+- Shopping cart
+- Checkout workflow
+- Order management
+- User dashboard
+- Profile management
+
+---
+
+## AI Features
+
+- AI-powered shopping assistant
+- Intelligent product recommendations
+- Personalized suggestions
+- Enhanced product discovery
+
+---
+
+## Authentication
+
+- Secure user registration
+- User login
+- JWT authentication
+- Session management
+- Protected routes
+
+---
+
+## User Experience
+
+- Responsive design
+- Mobile-first interface
+- Interactive dashboard
+- Modern UI components
+- Dark mode support
+- Toast notifications
+
+---
+
+## Backend Features
+
+- RESTful API architecture
+- Database abstraction using Prisma ORM
+- MySQL integration
+- Secure password hashing
+- Email notifications
+- WebSocket support using Socket.IO
+
+---
+
+## Quality Assurance
+
+- Automated testing
+- Type safety with TypeScript
+- ESLint support
+- Component-based architecture
+
+---
+
+# 🏗 Architecture
 
 ```text
-                    ┌─────────────────┐
-                    │     React UI    │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │ Flask / Django  │
-                    │   REST APIs     │
-                    └────────┬────────┘
-                             │
-         ┌───────────────────┼───────────────────┐
-         ▼                   ▼                   ▼
- ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
- │ User Mgmt   │    │ Product     │    │ Orders      │
- │ & Auth      │    │ Catalog     │    │ Processing  │
- └─────────────┘    └─────────────┘    └─────────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │ Recommendation  │
-                    │     Engine      │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │  SQL Database   │
-                    └─────────────────┘
+                    ┌─────────────────────────────┐
+                    │        Next.js 15 UI        │
+                    │          React App          │
+                    └──────────────┬──────────────┘
+                                   │
+                      Next.js API Routes / Express APIs
+                                   │
+          ┌────────────────────────┼────────────────────────┐
+          ▼                        ▼                        ▼
+ ┌────────────────┐      ┌────────────────┐      ┌────────────────┐
+ │ Authentication │      │ Marketplace    │      │ AI Assistant   │
+ │ JWT Security   │      │ Product APIs   │      │ Recommendations│
+ └────────────────┘      └────────────────┘      └────────────────┘
+                                   │
+                        Prisma ORM
+                                   │
+                                   ▼
+                          MySQL Database
 ```
 
 ---
 
-## Technology Stack
+# 🛠 Technology Stack
 
-### Frontend
+## Frontend
 
-* React
-* JavaScript
-* HTML5
-* CSS3
-
-### Backend
-
-* Python
-* Flask
-* Django
-* REST APIs
-
-### Database
-
-* MySQL
-* SQL Query Optimization
-
-### Machine Learning
-
-* Scikit-Learn
-* Pandas
-* Recommendation Systems
-
-### Testing
-
-* Selenium
-* PyTest
-
-### Deployment
-
-* Vercel
-
-### Development Tools
-
-* Git
-* GitHub
-* VS Code
+- Next.js 15
+- React 18
+- TypeScript
+- Tailwind CSS
+- Radix UI
+- shadcn/ui
+- React Hook Form
+- Zod Validation
+- Recharts
 
 ---
 
-## Performance Highlights
+## Backend
 
-* Supported **500+ concurrent users**
-* Improved database query performance by **35%** through query optimization
-* Increased user engagement by **25%** using personalized recommendations
-* Reduced application bugs by **40%** through automated testing
+- Next.js API Routes
+- Express.js
+- REST APIs
+- JWT Authentication
+- bcrypt
+- Nodemailer
 
 ---
 
-## Project Structure
+## Database
+
+- MySQL
+- Prisma ORM
+
+---
+
+## AI
+
+- Groq SDK
+- AI-powered chatbot
+- Personalized recommendations
+
+---
+
+## Real-Time Communication
+
+- Socket.IO
+- WebSockets
+
+---
+
+## Development Tools
+
+- Git
+- GitHub
+- ESLint
+- npm
+
+---
+
+# 📈 Performance Highlights
+
+- Supports scalable marketplace workflows
+- Optimized database interactions using Prisma ORM
+- AI-assisted product recommendations
+- Responsive user interface
+- Modular architecture for maintainability
+- Real-time communication using Socket.IO
+
+---
+
+# 📁 Project Structure
 
 ```text
 UTAMarket/
 │
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   ├── pages/
-│   ├── components/
-│   └── assets/
-│
-├── backend/
-│   ├── api/
-│   ├── models/
-│   ├── services/
-│   ├── recommendation_engine/
-│   └── authentication/
-│
-├── database/
-│
-├── tests/
-│   ├── selenium/
-│   └── pytest/
-│
-├── docs/
-│
+├── app/
+├── components/
+├── lib/
+├── prisma/
+├── public/
+├── styles/
+├── server/
+├── utils/
+├── hooks/
+├── middleware/
+├── types/
+├── package.json
+├── prisma.schema
 └── README.md
 ```
 
 ---
 
-## Getting Started
+# ⚙ Prerequisites
 
-### Clone the Repository
+Before running the project, ensure you have:
+
+- Node.js 18+
+- npm
+- MySQL Server
+- Git
+
+---
+
+# 🚀 Getting Started
+
+## Clone Repository
 
 ```bash
 git clone https://github.com/Harikasan/utamarket-prod.git
+
 cd utamarket-prod
 ```
 
-### Install Dependencies
+---
+
+## Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Configure Environment Variables
+---
 
-Copy the example environment file and create your local configuration.
+## Configure Environment Variables
+
+Copy the example environment file:
 
 ```bash
 cp .env.example .env
 ```
-Update the values in `.env` with your own database credentials, email configuration, JWT secret, and any other required API keys.
 
-### Run the Application
+Update the values in `.env` with your own:
+
+- Database credentials
+- JWT secret
+- SMTP configuration
+- API keys
+- Application configuration
+
+---
+
+## Generate Prisma Client
 
 ```bash
-npm start
+npx prisma generate
 ```
 
-Open the application in your browser:
+---
 
-```text
+## Apply Database Schema
+
+```bash
+npx prisma db push
+```
+
+or
+
+```bash
+npx prisma migrate dev
+```
+
+---
+
+## Run Development Server
+
+```bash
+npm run dev
+```
+
+Visit:
+
+```
 http://localhost:3000
 ```
 
 ---
 
-## Core Modules
+# 🏭 Production Build
 
-### Marketplace Management
-
-Handles product creation, editing, browsing, and category management.
-
-### Recommendation Engine
-
-Provides personalized product suggestions based on user interactions and browsing behavior.
-
-### Authentication System
-
-Manages user registration, login, secure sessions, and access control.
-
-### Order Management
-
-Tracks purchases, order history, and transaction workflows.
-
-### AI Assistant
-
-Supports users through conversational interactions and product discovery assistance.
-
----
-
-## Testing
-
-The project includes automated testing to ensure reliability and maintainability.
-
-### Run Tests
+Build the application
 
 ```bash
-pytest
+npm run build
 ```
 
-### Selenium Tests
+Start production server
 
 ```bash
-python run_selenium_tests.py
+npm start
 ```
 
 ---
 
-## Future Enhancements
+# 🔐 Environment Variables
 
-* Advanced recommendation algorithms
-* LLM-powered shopping assistant
-* Real-time notifications
-* Analytics dashboard
-* Cloud-native deployment
-* Enhanced search and ranking capabilities
+The project uses a `.env` file for local configuration.
+
+An example configuration is provided in:
+
+```text
+.env.example
+```
+
+Copy it before running the application:
+
+```bash
+cp .env.example .env
+```
+
+Never commit your actual `.env` file.
 
 ---
 
-## Project Impact
+# 🧩 Core Modules
 
-UTAMarket demonstrates the integration of full-stack software engineering, machine learning, database optimization, and automated testing into a production-style marketplace platform. The project showcases scalable application design, AI-driven personalization, and modern web development practices.
+## Marketplace
+
+Manages product listings, browsing, categories, shopping cart, and checkout.
 
 ---
 
-## Author
+## Authentication
 
-**Harika Attipatla**
+Handles user registration, login, JWT authentication, and protected routes.
 
-Master of Science in Computer Science
-University of Texas at Arlington
+---
+
+## Recommendation Engine
+
+Provides personalized shopping recommendations based on user interactions.
+
+---
+
+## AI Assistant
+
+Assists users with product discovery and marketplace navigation using AI.
+
+---
+
+## Database Layer
+
+Uses Prisma ORM to provide scalable and maintainable database access.
+
+---
+
+## Real-Time Communication
+
+Supports live updates using Socket.IO.
+
+---
+
+# 🧪 Available Scripts
+
+```bash
+npm run dev
+```
+
+Runs the development server.
+
+```bash
+npm run build
+```
+
+Creates the production build.
+
+```bash
+npm start
+```
+
+Runs the production server.
+
+```bash
+npm run lint
+```
+
+Runs ESLint.
+
+---
+
+# 🚀 Future Enhancements
+
+- AI-powered semantic search
+- Vector-based recommendation engine
+- Image similarity search
+- Live messaging
+- Payment gateway integration
+- Real-time notifications
+- Analytics dashboard
+- Cloud-native deployment
+- Docker support
+- Kubernetes deployment
+- CI/CD pipeline
+
+---
+
+# 🎯 Project Impact
+
+UTAMarket demonstrates modern full-stack software engineering by combining:
+
+- AI integration
+- Secure authentication
+- Database optimization
+- RESTful API development
+- Modern frontend architecture
+- Scalable backend services
+- Real-time communication
+- Production-ready development practices
+
+The project showcases practical experience with technologies commonly used in modern software engineering roles.
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License. See the **LICENSE** file for details.
+
+---
