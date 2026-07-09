@@ -2,7 +2,7 @@
 
 ### AI-Powered Marketplace Platform for University Communities
 
-<p align="center">
+<p>
   <img src="https://img.shields.io/badge/Next.js-15-black?logo=next.js" />
   <img src="https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white" />
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" />
@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/TailwindCSS-v4-38B2AC?logo=tailwindcss&logoColor=white" />
 </p>
 
-<p align="center">
+<p >
 An AI-powered marketplace built for university communities that enables students to buy, sell, and discover products through personalized recommendations, secure authentication, and an intelligent shopping assistant.
 </p>
 
