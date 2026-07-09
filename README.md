@@ -12,7 +12,7 @@
 </p>
 
 <p >
-An AI-powered marketplace built for university communities that enables students to buy, sell, and discover products through personalized recommendations, secure authentication, and an intelligent shopping assistant.
+Full-stack marketplace built with Next.js, authentication, REST APIs, Prisma ORM, MySQL, role-based authorization, and production-ready backend architecture.
 </p>
 
 ---
